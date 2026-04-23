@@ -16,3 +16,28 @@ export function makeRepo(overrides: Partial<Repo> = {}): Repo {
     ...overrides,
   };
 }
+
+type GitlabProject = {
+  id: number;
+  name: string;
+  path_with_namespace: string;
+  web_url: string;
+  star_count: number;
+  forks_count: number;
+  open_issues_count?: number;
+  statistics?: { commit_count: number };
+};
+
+export function makeGitlabProject(overrides: Partial<GitlabProject> = {}): GitlabProject {
+  return {
+    id: 42,
+    name: "demo",
+    path_with_namespace: "acme/demo",
+    web_url: "https://gitlab.test/acme/demo",
+    star_count: 7,
+    forks_count: 1,
+    open_issues_count: 4,
+    statistics: { commit_count: 123 },
+    ...overrides,
+  };
+}
