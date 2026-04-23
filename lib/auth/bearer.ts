@@ -1,8 +1,6 @@
-import type { AuthSpec, AuthenticatedFetch } from "@/lib/auth/types";
+import type { AuthenticatedFetch, BearerSpec } from "@/lib/auth/types";
 import { fetchWithRetry } from "@/lib/http";
 import { ingestError } from "@/lib/types";
-
-type BearerSpec = Extract<AuthSpec, { kind: "bearer" }>;
 
 export function bearerFetch(spec: BearerSpec): AuthenticatedFetch {
   return async (input, init = {}) => {

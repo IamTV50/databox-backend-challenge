@@ -9,6 +9,23 @@ const ConfigSchema = z.object({
   GITHUB_TOKEN: z.string().min(1),
   GITHUB_ORG: z.string().min(1),
   GITHUB_REPOS_DATASET_ID: z.string().min(1),
+
+  GITLAB_PROJECT_URL: z
+    .string()
+    .min(1)
+    .refine((v) => {
+      try {
+        const u = new URL(v);
+        return u.pathname.replace(/^\/+|\/+$/g, "").length > 0;
+      } catch {
+        return false;
+      }
+    }, "must be a full project URL, e.g. https://gitlab.com/fdroid/fdroidclient"),
+  GITLAB_CLIENT_ID: z.string().min(1),
+  GITLAB_CLIENT_SECRET: z.string().min(1),
+  GITLAB_REFRESH_TOKEN: z.string().min(1),
+  GITLAB_REDIRECT_URI: z.string().min(1),
+  GITLAB_PROJECT_STATS_DATASET_ID: z.string().min(1),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;
